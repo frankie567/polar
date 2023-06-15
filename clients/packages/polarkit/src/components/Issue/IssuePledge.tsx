@@ -1,5 +1,5 @@
-import { useIssueMarkConfirmed } from 'hooks'
 import { Platforms, PledgeRead, PledgeState } from 'polarkit/api/client'
+import { useIssueMarkConfirmed } from 'polarkit/hooks'
 import { getCentsInDollarString } from 'polarkit/utils'
 import IssueConfirmButton from './IssueConfirmButton'
 
