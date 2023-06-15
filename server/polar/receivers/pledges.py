@@ -144,7 +144,7 @@ async def pledge_confirmation_pending_notification(
     pledge: Pledge,
     session: AsyncSession
 ) -> None:
-    raise NotImplementedError
+    ... # TODO: implement
 
 
 async def pledge_pending_notification(pledge: Pledge, session: AsyncSession) -> None:
