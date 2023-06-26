@@ -467,6 +467,7 @@ class PledgeService(ResourceServiceReader[Pledge]):
             issue_id,
             from_states=PledgeState.to_pending_states(),
             to_state=PledgeState.pending,
+            hook=pledge_pending,
         )
 
     async def mark_pending_by_pledge_id(
