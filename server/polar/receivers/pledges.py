@@ -54,10 +54,12 @@ async def mark_pledges_confirmation_pending_on_issue_close(
     hook: IssueHook,
 ) -> None:
     if hook.issue.state == "closed":
+        # Mark pledges in "created" as "confirmation_pending"
         await pledge_service.mark_confirmation_pending_by_issue_id(
             hook.session, hook.issue.id
         )
     else:
+        # Mark pledges in "confirmation_pending" as "created"
         await pledge_service.mark_confirmation_pending_as_created_by_issue_id(
             hook.session, hook.issue.id
         )
@@ -164,17 +166,17 @@ async def pledge_confirmation_pending_notification(
 ) -> None:
     issue = await issue_service.get_by_id(session, pledge.issue_id)
     if not issue:
-        log.error("pledge_pending_notification.no_issue_found")
+        log.error("pledge_confirmation_pending_notification.no_issue_found")
         return
 
     org = await organization_service.get(session, issue.organization_id)
     if not org:
-        log.error("pledge_pending_notification.no_org_found")
+        log.error("pledge_confirmation_pending_notification.no_org_found")
         return
 
     repo = await repository_service.get(session, issue.repository_id)
     if not repo:
-        log.error("pledge_pending_notification.no_repo_found")
+        log.error("pledge_confirmation_pending_notification.no_repo_found")
         return
 
     n = MaintainerPledgeConfirmationPendingNotification(
